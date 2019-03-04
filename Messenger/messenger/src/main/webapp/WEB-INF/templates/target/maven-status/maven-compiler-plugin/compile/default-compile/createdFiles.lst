@@ -1,0 +1,10 @@
+com\messenger\services\ServiceForUser.class
+com\messenger\controllers\HomeController.class
+com\messenger\services\interfaces\UserService.class
+com\messenger\ServletInitializer.class
+com\messenger\entities\User.class
+com\messenger\utils\types\UserRole.class
+com\messenger\configuration\SecurityConfiguration.class
+com\messenger\reposiroties\UserRepository.class
+com\messenger\MessengerApplication.class
+com\messenger\entities\UserInformation.class

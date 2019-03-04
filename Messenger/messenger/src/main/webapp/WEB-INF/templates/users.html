@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="/resources/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/popper/popper.min.js"></script>
+<script type="text/javascript"
+	src="/resources/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:insert="fragments/defaultHeader :: header"></div>
+	<div class="container-fluid">
+		<table class="table table-borderless">
+			<thead>
+				<tr>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Phone number</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="#{user.firstName}">Mark</td>
+					<td th:text="#{user.lastName}">Otto</td>
+					<td th:text="#{user.phone}">@mdo</td>
+					<td><form action="createConversation" method="post">
+							<input type="hidden" name="userId" th:attr="value=#{user.id}">
+							<button type="submit" class="btn btn-outline-secondary">Write</button>
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

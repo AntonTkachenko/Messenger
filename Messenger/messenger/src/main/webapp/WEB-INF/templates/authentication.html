@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="/resources/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/popper/popper.min.js"></script>
+<script type="text/javascript"
+	src="/resources/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<body class="text-center">
+	<div class="container">
+		<form class="form-signin" th:action="@{authentication}"
+			method="post" th:object="${userForm}">
+			<img class="mb-4" src="/resources/images/HandMade.webp" width="72"
+				height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<label for="inputPhone" class="sr-only">Phone number</label> <input
+				th:field="*{phone}" type="text" id="inputPhone" class="form-control"
+				placeholder="Phone number" required="required" autofocus="autofocus">
+			<div th:if="${#fields.hasErrors('phone')}"
+				th:errors="*{phone}" class="alert alert-danger" role="alert">Phone
+				Error</div>
+			<label for="inputPassword" class="sr-only">Password</label> <input
+				th:field="*{password}" type="password" id="inputPassword"
+				class="form-control" placeholder="Password" required="required">
+			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+				class="alert alert-danger" role="alert">Password Error</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+				in</button>
+			<p class="mt-5 mb-3 text-muted">© messenger</p>
+		</form>
+	</div>
+</body>
+
+
+</html>

@@ -38,7 +38,7 @@ public class User extends BasicFields implements Serializable {
 	@Column(name = "USER_PHONE", unique = true, nullable = false)
 	private String phone;
 
-	@Column(name = "USER_EMAIL", unique = true)
+	@Column(name = "USER_EMAIL")
 	private String email;
 	
 	@NotNull

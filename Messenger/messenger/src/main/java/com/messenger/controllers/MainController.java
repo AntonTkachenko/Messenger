@@ -3,10 +3,8 @@
  */
 package com.messenger.controllers;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +27,12 @@ import com.messenger.services.interfaces.UserService;
  */
 
 @Controller
-@Scope("request")
+@Scope("session")
 public class MainController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ConversationServise conversationService;
 
@@ -49,7 +47,15 @@ public class MainController {
 		if (user == null) {
 			return new ModelAndView("redirect:/user/authentication", model);
 		}
-		model.addAttribute("conversations", user.getConversations());
+
+		Conversation currentConversation = null;
+		for (Conversation conversation : user.getConversations()) {
+			currentConversation = conversation;
+			break;
+		}
+
+		model.addAttribute("currentConversation",
+				currentConversation != null ? currentConversation : new Conversation());
 		return new ModelAndView("main", model);
 	}
 
@@ -63,25 +69,8 @@ public class MainController {
 				break;
 			}
 		}
-		model.addAttribute("conversations", user.getConversations());
-		model.addAttribute("currentConversation", user.getConversations());
+		model.addAttribute("user", user);
 		return new ModelAndView("main", model);
 	}
-	
-	@RequestMapping(value = "currentConversation", method = { RequestMethod.POST })
-	public ModelAndView createConversation(ModelMap model, Long userId) {
-		User userCreator = userService.findUserByPhoneNumber(SecurityContextHolder.getContext().getAuthentication().getName());
-		User user = userService.getUserRepository().getOne(userId);
-		Conversation conversation = new Conversation();
-		Set<User> users = new HashSet<>();
-		users.add(userCreator);
-		users.add(user);
-		conversation.setUsers(users);
-		conversation.setTitle(user.getPhone());
-		conversation = conversationService.getConversationRepository().save(conversation);
-		model.addAttribute("currentConversation", conversation);
-		model.addAttribute("conversations", user.getConversations());
-		model.addAttribute("currentConversation", user.getConversations());
-		return new ModelAndView("main", model);
-	}
+
 }

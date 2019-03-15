@@ -2,32 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
-<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="/resources/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/popper/popper.min.js"></script>
+<title>Users</title>
+<link rel="stylesheet"
+	th:href=@{/resources/bootstrap/css/bootstrap.min.css}>
 <script type="text/javascript"
-	src="/resources/bootstrap/js/bootstrap.min.js"></script>
+	th:src="@{/resources/jquery/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/resources/popper/popper.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 	<div th:insert="fragments/defaultHeader :: header"></div>
-	<div class="container-fluid">
+	<div class="alert alert-warning" role="alert" th:if="${error != null}" th:text=${error}>Error</div>
+	<div class="table-responsive-lg" th:if="${error == null}">
 		<table class="table table-borderless">
-			<thead>
-				<tr>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Phone number</th>
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
 			<tbody>
-				<tr>
-					<td th:text="#{user.firstName}">Mark</td>
-					<td th:text="#{user.lastName}">Otto</td>
-					<td th:text="#{user.phone}">@mdo</td>
-					<td><form action="createConversation" method="post">
-							<input type="hidden" name="userId" th:attr="value=#{user.id}">
+				<tr th:each="userFinded : ${users}">
+					<td th:text="${userFinded.firstName}">#</td>
+					<td th:text="${userFinded.lastName}">#</td>
+					<td th:text="${userFinded.phone}">#</td>
+					<td><form action="#" th:action="@{user/createConversation}"
+							method="post">
+							<input type="hidden" name="userId" th:attr="value=${userFinded.id}">
 							<button type="submit" class="btn btn-outline-secondary">Write</button>
 						</form></td>
 				</tr>

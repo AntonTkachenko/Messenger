@@ -18,6 +18,8 @@ import com.messenger.reposiroties.UserRepository;
 public interface UserService {
 
 	public User findUserByPhoneNumber(String phoneNumber);
+	
+	public User findUserById(Long id);
 
 	public Set<Conversation> findUserConversations(List<User> users);
 
@@ -26,6 +28,8 @@ public interface UserService {
 	public UserRepository getUserRepository();
 
 	public User findByEmail(String email);
+	
+	public List<User> findByName(String name, int pageNumber);
 
 	boolean createAndSaveUser(User user);
 }

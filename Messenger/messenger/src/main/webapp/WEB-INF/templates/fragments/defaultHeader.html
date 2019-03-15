@@ -5,28 +5,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark"
+	<nav class="navbar navbar-expand-md text-dark"
 		style="background-color: #e3f2fd" th:fragment="header">
-		<a class="navbar-brand" href="/main"><img
-			src="/resources/images/HandMade.webp" width="20" height="20"></a>
+		<a class="navbar-brand" th:href="@{/main}"> 
+		<img class="img-thumbnail" th:src="@{/resources/images/HandMade.webp}"
+			width="30" height="30">
+		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarsExampleDefault"
-			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			data-target="#navbars" aria-controls="navbars" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<div class="collapse navbar-collapse" id="navbars">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="https://getbootstrap.com/docs/4.3/examples/starter-template/#">Home
-						<span class="sr-only">(current)</span>
-				</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle text-dark" href="#"
+					id="dropdown" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false" th:text="${user.firstName}">Dropdown</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown">
+						<a class="dropdown-item" href="#" th:href="@{/user/profile}">Profile</a>
+						<a class="dropdown-item" href="#" th:href="@{/user/logout}">Logout</a>
+					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" action="find" method="post">
-				<input class="form-control mr-sm-2" type="text" name="phoneNumber" placeholder="Phone number"
-					aria-label="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			<form class="form-inline my-2 my-lg-0" th:action="@{/find}"
+				method="post">
+				<input class="form-control mr-sm-2" type="text" placeholder="Phone"
+					aria-label="Search" name="text">
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Find</button>
 			</form>
 		</div>
 	</nav>

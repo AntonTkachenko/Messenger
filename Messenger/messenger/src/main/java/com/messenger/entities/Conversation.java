@@ -34,7 +34,7 @@ public class Conversation extends BasicFields implements Serializable {
 	@Column(name = "TITLE", nullable = false)
 	private String title;
 
-	@Column(name = "FOTO_LINK", nullable = false)
+	@Column(name = "FOTO_LINK")
 	private String fotoLink;
 
 	@ManyToMany(mappedBy = "conversations")

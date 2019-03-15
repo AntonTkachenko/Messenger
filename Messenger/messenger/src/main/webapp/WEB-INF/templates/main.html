@@ -3,29 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="/resources/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/popper/popper.min.js"></script>
+<link rel="stylesheet"
+	th:href=@{/resources/bootstrap/css/bootstrap.min.css}>
 <script type="text/javascript"
-	src="/resources/bootstrap/js/bootstrap.min.js"></script>
+	th:src="@{/resources/jquery/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/resources/popper/popper.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 	<div th:insert="fragments/defaultHeader :: header"></div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col col-lg-2">
-				<div class="card" style="width: 18rem;">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item" th:each="conversation :${conversations}">
-							<form action="currentConversation" method="post">
-								<input type="hidden" name="conversationId" th:attr="value=#{conversation.id}">
-								<button type="submit" class="btn btn-outline-secondary" th:text="#{conversation.title}">Secondary</button>
-							</form>
-						</li>
-					</ul>
-				</div>
+			<div class="col-sm" id="conversations">
+				<ul class="list-group">
+					<li th:each="conversation : ${user.conversations}" th:text="${conversation.title}"
+						class="list-group-item d-flex justify-content-between align-items-center">
+						Cras justo odio <span class="badge badge-primary badge-pill">0</span>
+					</li>
+				</ul>
 			</div>
-			<div class="col-md-auto">currentConversation</div>
+			<div class="col-sm" id="messenges">
+				<dl th:each="message : ${currentConversation.messages}">
+					<dt th:text="${message.user.firstName}">...</dt>
+					<dd th:text="${message.text}">...</dd>
+				</dl>
+				<form th:action="@{/user/sendMessage}" action="#" method="post">
+					  <div class="form-row align-items-center">
+					    <div class="col-auto">
+					      <label class="sr-only" for="Message">Message</label>
+					      <input type="text" name="messageText" class="form-control mb-2" id="Message" placeholder="Message">
+					      <input type="hidden" name="currentConversationId" th:attr="value=${currentConversation.id}">
+					    </div>
+					    <div class="col-auto">
+					      <button type="submit" class="btn btn-primary mb-2">Send</button>
+					    </div>
+					  </div>
+					</form>
+			</div>
+			<div class="col-sm" id="members">
+				<ul class="list-group">
+					<li th:each="member : ${currentConversation.users}" th:text=${member.firstName}
+						class="list-group-item d-flex justify-content-between align-items-center">
+						Cras justo odio <span class="badge badge-primary badge-pill">14</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>
